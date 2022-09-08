@@ -25,6 +25,7 @@ from keras import backend as K
 # 	return fps_np
 opt=tf.keras.optimizers.Adam(learning_rate=0.01)
 
+# rewrite the pearson function using tf, so that it could be output in every epoch
 def pearson_r(y_true, y_pred):
     x = y_true
     y = y_pred
@@ -38,6 +39,7 @@ def pearson_r(y_true, y_pred):
     r = r_num / r_den
     return K.mean(r)
 
+# original pearson function to calculate pearson coefficient
 def pearson(n_x,n_y):
 	a_x = np.average(n_x)
 	a_y = np.average(n_y)
@@ -72,15 +74,15 @@ dropout = 0.5
 
 NN = Sequential()
 
-# Add Dense layer with 100 units
+# Add input layer with 25 nodes
 NN.add(Dense(n_units, input_shape=(n_features,)))
 # NN.add(Dropout(0.8))
 
+
+# Add 4 hidden layer
 NN.add(Dense(45))
 NN.add(ReLU())
 # NN.add(Dropout(dropout))
-
-
 
 NN.add(Dense(10))
 NN.add(LayerNormalization())
@@ -89,8 +91,6 @@ NN.add(Dense(10))
 NN.add(LayerNormalization())
 # NN.add(ReLU())
 # NN.add(Dropout(dropout))
-
-
 
 NN.add(Dense(5))
 # NN.add(ReLU())
